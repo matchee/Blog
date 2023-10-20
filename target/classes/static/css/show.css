@@ -1,0 +1,46 @@
+#app{
+   width: 1200px;
+   margin: 50px auto;
+   box-shadow: 0 0 5px #ccc ;
+   border-radius: 5px;
+   overflow: hidden;
+}
+.content-header {
+
+   position: relative;
+
+   padding: 15px 15px 0 15px;
+
+   /* margin-top: 70px; */
+
+}
+
+.content-header > h1 {
+
+   margin: 0;
+
+   font-size: 24px;
+
+   font-weight: normal;
+
+}
+.box {
+
+   position: relative;
+
+   border-radius: 3px;
+
+   background: #ffffff;
+
+   border-top: 3px solid #3c8dbc;
+   margin-top: 20px;
+
+   padding: 10px;
+
+   margin-bottom: 20px;
+
+   width: 100%;
+
+   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+
+}

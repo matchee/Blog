@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+    namespace:名称空间
+-->
+<mapper namespace="com.guojun.dao.BlogDao">
+
+    <!--使用resultMap来定义字段和属性的映射关系的方式-->
+    <resultMap id="blogMap" type="com.guojun.domain.Blog">
+        <id property="id" column="id"></id>
+        <result property="title" column="title"></result>
+        <result property="context" column="context"></result>
+        <result property="createdTime" column="createdTime" jdbcType="TIMESTAMP"></result>
+        <result property="classId" column="classId"></result>
+        <result property="className" column="name"></result>
+        <association property="user" javaType="com.guojun.domain.User">
+            <id property="id" column="userId"></id>
+            <result property="userName" column="userName"></result>
+        </association>
+        <association property="aClass" javaType="com.guojun.domain.Class">
+            <id property="id" column="classId"></id>
+            <result property="name" column="name"></result>
+        </association>
+    </resultMap>
+
+    <select id="getAll2" resultMap="blogMap">
+        SELECT *
+        FROM blog b
+                 JOIN class c ON b.classId = c.id
+                 JOIN users u ON b.userId = u.id
+    </select>
+
+
+
+    <select id="getByTitle" resultMap="blogMap">
+        SELECT * FROM blog b JOIN class c ON b.classId = c.id where b.title like concat('%',#{title},'%')
+    </select>
+</mapper>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" user-scalable=no>
+	<title>博客详细</title>
+
+	<link type="text/css" href="../css/style.css" rel="stylesheet" />
+
+	<!-- 引入样式 -->
+	<link rel="stylesheet" href="../plugins/elementui/index.css">
+	<link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.min.css">
+	<link href="../css/base.css" rel="stylesheet">
+	<link href="../css/blogDetail.css" rel="stylesheet">
+
+
+	<script src="../js/vue.js"></script>
+	<!-- 引入组件库 -->
+	<script src="../plugins/elementui/index.js"></script>
+	<script type="text/javascript" src="../js/jquery.min.js"></script>
+	<script src="../js/axios-0.18.0.js"></script>
+
+
+</head>
+
+<body>
+	<div id="box">
+
+		<div class="wrapper">
+			<header>
+				<h1 id="logo"><a href="/"><img src="../imgs/logo.jpg" width="260" height="60" alt="个人博客"></a></h1>
+				<nav>
+					<ul>
+						<li id="active"><a href="JavaScript:;">个人博客</a></li>
+					</ul>
+				</nav>
+			</header>
+			<div class="banner">
+				<div class="headerPic"><a href="/"><span>个人博客</span></a></div>
+				<div class="websiteDescription">
+					<h2>渡人如渡己，渡已，亦是渡</h2>
+					<p>当我们被误解时，会花很多时间去辩白。 但没有用，没人愿意听，大家习惯按自己的所闻、理解做出判别，每个人其实都很固执。与其努力且痛苦的试图扭转别人的评判，不如默默承受，给大家多一点时间和空间去了解。而我们省下辩解的功夫，去实现自身更久远的人生价值。其实，渡人如渡己，渡已，亦是渡人。</p>
+				</div>
+			</div>
+			<div class="mainContent">
+				<h2 class="title_tj">
+					<p>评论<span>推荐</span></p>
+				</h2>
+				<div class="bloglist">
+					<div>
+						<h3>{{blogData.title}}</h3>
+						<figure><img src="../imgs/ex03.png"></figure>
+						<ul>
+							<p> {{blogData.context}}</p>
+						</ul>
+						<div class="dateview">
+
+							<span>精彩评论</span>
+
+
+						</div>
+					</div>
+				</div>
+				<ul class="list">
+					<li v-if="commentList.length==0">
+						暂无评论
+					</li>
+					<li v-for="(item,index) in commentList" v-bind:key="index">
+<!--						<span class="xh">{{item.userName}}</span>-->
+<!--						<span>{{item.context}}</span>-->
+<!--						<span>{{item.createdTime}}</span>-->
+						<div class="left">
+							<img src="../imgs/tou.png" alt="">
+							<div class="left-name">
+								{{item.user.userName}}
+							</div>
+						</div>
+						<div class="right">
+							<p>
+								{{item.context}}
+							</p>
+							<div class="bn">
+								<span @click="handleDelete(item.id)" style="color:red" v-if="user.id==item.userId">删除</span>
+								<span>{{index+2}}楼</span>
+								<span>{{item.createdTime}}</span>
+							</div>
+						</div>
+
+					</li>
+
+				</ul>
+
+			</div>
+			<div class="sidebar">
+				<div class="news">
+					<h3>
+						<p>最新<span>文章</span></p>
+					</h3>
+					<ul class="rank">
+						<li><a href="/" title="Column 三栏布局 个人网站模板" target="_blank">Column 三栏布局 个人网站模板</a></li>
+						<li><a href="/" title="with love for you 个人网站模板" target="_blank">with love for you 个人网站模板</a></li>
+						<li><a href="/" title="免费收录网站搜索引擎登录口大全" target="_blank">免费收录网站搜索引擎登录口大全</a></li>
+						<li><a href="/" title="做网站到底需要什么?" target="_blank">做网站到底需要什么?</a></li>
+						<li><a href="/" title="企业做网站具体流程步骤" target="_blank">企业做网站具体流程步骤</a></li>
+						<li><a href="/" title="建站流程篇——教你如何快速学会做网站" target="_blank">建站流程篇——教你如何快速学会做网站</a></li>
+						<li><a href="/" title="box-shadow 阴影右下脚折边效果" target="_blank">box-shadow 阴影右下脚折边效果</a></li>
+						<li><a href="/" title="打雷时室内、户外应该需要注意什么" target="_blank">打雷时室内、户外应该需要注意什么</a></li>
+					</ul>
+					<h3 class="ph">
+						<p>点击<span>排行</span></p>
+					</h3>
+					<ul class="paih">
+						<li><a href="/" title="Column 三栏布局 个人网站模板" target="_blank">Column 三栏布局 个人网站模板</a></li>
+						<li><a href="/" title="withlove for you 个人网站模板" target="_blank">with love for you 个人网站模板</a></li>
+						<li><a href="/" title="免费收录网站搜索引擎登录口大全" target="_blank">免费收录网站搜索引擎登录口大全</a></li>
+						<li><a href="/" title="做网站到底需要什么?" target="_blank">做网站到底需要什么?</a></li>
+						<li><a href="/" title="企业做网站具体流程步骤" target="_blank">企业做网站具体流程步骤</a></li>
+					</ul>
+
+				</div>
+			</div>
+			
+			<div class="clearfloat"></div>
+			<div class="input">
+				<input type="text" placeholder="快来发表有趣的评论吧！" v-model:value="commentDate.context" />
+				<span id='add' @click="add">发表评论</span>
+			</div>
+			<footer>
+				<ul>
+					Designed by <a href="/" title="个人博客">DanceSmile</a>
+				</ul>
+			</footer>
+		</div>
+
+
+	</div>
+
+	<script>
+		var top = new Vue({
+			el: "#box",
+			data() {
+				return {
+					user: {}, // 当前登录用户
+					blogData: {},
+					commentDate: {
+						context: '',
+						userName: '',
+					},
+					commentList: [], // 该博客下的评论列表
+					blogId: '',
+				}
+			},
+			created() {
+				this.currentUser();
+				this.loadBlogAndComments();
+			},
+			methods: {
+				// 获取当前登录用户
+				currentUser() {
+					axios.post("/users/currentUser").then((res) => {
+						this.user = res.data;
+					});
+				},
+
+				// 加载博客和评论
+				loadBlogAndComments() {
+					const urlParams = new URLSearchParams(window.location.search);
+					this.blogId = urlParams.get('id');
+					this.showBlog();
+					this.showComment();
+				},
+
+				// 展示博客
+				showBlog() {
+					axios.get("/blogs/" + this.blogId).then((res) => {
+						if (res.data.code == 20041) {
+							this.blogData = res.data.data;
+						} else {
+							this.$message.error(res.data.msg);
+						}
+					});
+				},
+
+				// 添加评论
+				add() {
+					if (this.commentDate.context == '') {
+						this.$message.error("评论不能为空");
+						return;
+					}
+
+					this.commentDate.blogId = this.blogId;
+					this.commentDate.userId = this.user.id;
+					axios.post("/comments/", this.commentDate).then((res) => {
+						if (res.data.code == 20011) {
+							this.$message.success("添加成功");
+						} else if (res.data.code == 20010) {
+							this.$message.error("添加失败");
+						} else {
+							this.$message.error(res.data.msg);
+						}
+					}).finally(() => {
+						this.commentDate.context = '';
+						this.showComment();
+					});
+				},
+
+				// 显示评论
+				showComment() {
+					axios.get("/comments/" + this.blogId).then((res) => {
+						this.commentList = res.data.data;
+					});
+
+					// this.showBlog(); // 为什么要在此处再次调用showBlog？
+				},
+
+				// 删除评论
+				handleDelete(id) {
+					this.$confirm("删除当前评论，是否继续？", "提示", {
+						type: 'info'
+					}).then(() => {
+						axios.delete("/comments/" + id).then((res) => {
+							if (res.data.code == 20021) {
+								this.$message.success("删除成功");
+							} else {
+								this.$message.error("删除失败");
+							}
+						}).finally(() => {
+							this.showComment();
+						});
+					}).catch(() => {
+						this.$message.info("取消删除操作");
+					});
+				},
+			},
+		})
+
+	</script>
+</body>
+
+</html>

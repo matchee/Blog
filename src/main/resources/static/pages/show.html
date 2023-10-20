@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="../plugins/elementui/index.css">
+    <link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.min.css">
+    <!--    <link href="../css/show.css" rel="stylesheet">-->
+    <link href="../css/base.css" rel="stylesheet">
+
+    <script src="../js/vue.js"></script>
+    <!-- 引入组件库 -->
+    <script src="../plugins/elementui/index.js"></script>
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script src="../js/axios-0.18.0.js"></script>
+
+</head>
+
+<body>
+    <div id="app">
+        <div class="wrapper">
+            <header>
+                <h1 id="logo"><a href="/"><img src="../imgs/logo.jpg" width="260" height="60" alt="个人博客"></a></h1>
+                <nav>
+                    <ul>
+                        <li id="active"><a href="JavaScript:;">个人博客</a></li>
+                        <li><a @click="handleCreate" href="javascript:;">发布博客</a></li>
+                    </ul>
+                </nav>
+            </header>
+            <div class="banner">
+                <div class="headerPic"><a href="JavaScript:;"><span>个人博客</span></a></div>
+                <div class="websiteDescription">
+                    <h2>渡人如渡己，渡已，亦是渡</h2>
+                    <p>当我们被误解时，会花很多时间去辩白。
+                        但没有用，没人愿意听，大家习惯按自己的所闻、理解做出判别，每个人其实都很固执。与其努力且痛苦的试图扭转别人的评判，不如默默承受，给大家多一点时间和空间去了解。而我们省下辩解的功夫，去实现自身更久远的人生价值。其实，渡人如渡己，渡已，亦是渡人。
+                    </p>
+                </div>
+            </div>
+            <div class="mainContent">
+                <h2 class="title_tj">
+                    <p>博客<span>推荐</span></p>
+                </h2>
+                <div class="bloglist">
+                    <div v-for="item in dataList">
+                        <h3>{{item.title}}</h3>
+                        <figure><img src="../imgs/ex03.png"></figure>
+                        <ul>
+                            <p> {{item.context}}</p>
+                        </ul>
+                        <div class="dateview">
+                            <a title="/" href="javascript:;" target="_blank" @click="handleDetail(item.id)"
+                                class="readmore">
+                                阅读全文>>
+                            </a>
+                            <span>{{item.createdTime}}</span>
+                            <span>作者：{{item.user.userName}}</span>
+                            <span v-if="item.user.id == user.id">
+                                <span @click="handleUpdate(item.id)"><a href="javascript:;">编辑</a></span>
+                                <span @click="handleDelete(item.id)"><a href="javascript:;">删除</a></span>
+                            </span>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="sidebar">
+                <div class="news">
+                    <h3>
+                        <p>最新<span>文章</span></p>
+                    </h3>
+                    <ul class="rank">
+                        <li><a href="JavaScript:;" title="Column 三栏布局 个人网站模板" target="_blank">Column 三栏布局 个人网站模板</a>
+                        </li>
+                        <li><a href="JavaScript:;" title="with love for you 个人网站模板" target="_blank">with love for you
+                                个人网站模板</a></li>
+                        <li><a href="JavaScript:;" title="免费收录网站搜索引擎登录口大全" target="_blank">免费收录网站搜索引擎登录口大全</a></li>
+                        <li><a href="JavaScript:;" title="做网站到底需要什么?" target="_blank">做网站到底需要什么?</a></li>
+                        <li><a href="JavaScript:;" title="企业做网站具体流程步骤" target="_blank">企业做网站具体流程步骤</a></li>
+                        <li><a href="JavaScript:;" title="建站流程篇——教你如何快速学会做网站" target="_blank">建站流程篇——教你如何快速学会做网站</a>
+                        </li>
+                        <li><a href="JavaScript:;" title="box-shadow 阴影右下脚折边效果" target="_blank">box-shadow 阴影右下脚折边效果</a>
+                        </li>
+                        <li><a href="JavaScript:;" title="打雷时室内、户外应该需要注意什么" target="_blank">打雷时室内、户外应该需要注意什么</a></li>
+                    </ul>
+                    <h3 class="ph">
+                        <p>点击<span>排行</span></p>
+                    </h3>
+                    <ul class="paih">
+                        <li><a href="JavaScript:;" title="Column 三栏布局 个人网站模板" target="_blank">Column 三栏布局 个人网站模板</a>
+                        </li>
+                        <li><a href="JavaScript:;" title="withlove for you 个人网站模板" target="_blank">with love for you
+                                个人网站模板</a></li>
+                        <li><a href="JavaScript:;" title="免费收录网站搜索引擎登录口大全" target="_blank">免费收录网站搜索引擎登录口大全</a></li>
+                        <li><a href="JavaScript:;" title="做网站到底需要什么?" target="_blank">做网站到底需要什么?</a></li>
+                        <li><a href="JavaScript:;" title="企业做网站具体流程步骤" target="_blank">企业做网站具体流程步骤</a></li>
+                    </ul>
+
+                </div>
+            </div>
+            <div class="clearfloat"></div>
+            <footer>
+                <ul>
+                    <!-- Designed by <a href="JavaScript:;" title="个人博客">DanceSmile</a> -->
+
+                    <a style="background:none;height: 5%;bottom: 0px;width: 100%;text-align: center;"
+                        href="https://beian.miit.gov.cn" id="beian" target="_blank">&nbsp;赣ICP备2023007080号</a>
+
+                </ul>
+            </footer>
+        </div>
+        <div class="add-form">
+            <el-dialog title="发布博客" :visible.sync="dialogFormVisible">
+                <el-form ref="dataAddForm" :model="formData" label-position="right" label-width="100px">
+                    <el-row>
+                        <el-col :span="12">
+                            <el-form-item label="博客标题" prop="title">
+                                <el-input v-model="formData.title" />
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="12">
+
+                            <el-form-item label="博客类别">
+                                <el-select v-model="formData.classId" placeholder="请选择博客类型">
+                                    <el-option :label="item.name" :value="item.sort"
+                                        v-for="(item,index) in showClass"></el-option>
+                                </el-select>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+                    <el-row>
+                        <el-col :span="24">
+                            <el-form-item label="博客内容">
+                                <el-input v-model="formData.context" type="textarea"></el-input>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+                </el-form>
+                <div slot="footer" class="dialog-footer">
+                    <el-button @click="dialogFormVisible = false">取消</el-button>
+                    <el-button type="primary" @click="handleAdd()">确定</el-button>
+                </div>
+            </el-dialog>
+        </div>
+        <!-- 编辑标签弹层 -->
+        <div class="add-form">
+            <el-dialog title="修改博客" :visible.sync="dialogFormVisible4Edit">
+                <el-form ref="dataEditForm" :model="formData" label-position="right" label-width="100px">
+                    <el-row>
+                        <el-col :span="12">
+                            <el-form-item label="博客标题" prop="title">
+                                <el-input v-model="formData.title" />
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="12">
+                            <el-form-item label="博客类别" prop="classId">
+                                <!--                                        <el-input v-model="formData.classId"/>-->
+                                <el-select v-model="formData.classId" placeholder="请选择博客类型">
+                                    <el-option :label="item.name" :value="item.sort"
+                                        v-for="(item,index) in showClass"></el-option>
+                                </el-select>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+                    <el-row>
+                        <el-col :span="24">
+                            <el-form-item label="博客内容">
+                                <el-input v-model="formData.context" type="textarea"></el-input>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+                </el-form>
+                <div slot="footer" class="dialog-footer">
+                    <el-button @click="dialogFormVisible4Edit = false">取消</el-button>
+                    <el-button type="primary" @click="handleEdit()">确定</el-button>
+                </div>
+            </el-dialog>
+        </div>
+    </div>
+
+
+</body>
+<script>
+    var vue = new Vue({
+        el: '#app',
+        data: {
+            user: {}, //当前用户
+            search: '',
+            dataList: [],//当前页要展示的列表数据
+            formData: {},//表单数据
+            dialogFormVisible: false,//控制表单是否可见
+            dialogFormVisible4Edit: false,//编辑表单是否可见
+            showClass: [],//这是数据库的博客类别
+        },
+        //钩子函数，VUE对象初始化完成后自动执行
+        created() {
+            this.getAll();
+            //加载博客的类别
+            axios.get("/class").then((res) => {
+                this.showClass = res.data.data;
+            })
+            axios.post("/users/currentUser").then((res) => {
+                this.user = res.data;
+                console.log(this.user);
+
+            })
+        },
+        methods: {
+            getAll() {
+                axios.get("/blogs").then((res) => {
+                    this.dataList = res.data.data;
+                    console.log(res.data.data)
+                })
+            },
+            //弹出添加窗口
+            handleCreate() {
+                this.dialogFormVisible = true;
+                this.resetForm();
+            },
+            //重置表单
+            resetForm() {
+                this.formData = {};
+            },
+            //添加
+            handleAdd() {
+                this.formData.userId = this.user.id;
+                console.log(this.formData)
+
+                axios.post("/blogs", this.formData).then((res) => {
+                    if (res.data.code == 20011) {
+                        this.$message.success("添加成功")
+                    } else if (res.data.code == 20010) {
+                        this.$message.error("添加失败")
+                    } else {
+                        this.$message.error(res.data.msg)
+                    }
+                }).finally(() => {
+                    this.dialogFormVisible = false;
+                    this.getAll();
+                })
+            },
+
+            // //根据title查询
+            // getAllByTitle(){
+            //     if (this.search !=''){
+            //         axios.get("/blogs/title",{
+            //             params:{
+            //                 title: encodeURIComponent(this.search)
+            //             }
+            //         }).then((res)=>{
+            //             console.log(this.search)
+            //             // console.log(res.data.data)
+            //             this.dataList = res.data.data;
+            //         })
+            //     }else{
+            //         this.getAll();
+            //     }
+            //
+            // },
+
+            //弹出编辑窗口
+            handleUpdate(id) {
+                axios.get("/blogs/" + id).then((res) => {
+                    if (res.data.code == 20041) {
+                        this.formData = res.data.data;
+                        this.dialogFormVisible4Edit = true;
+                    } else {
+                        this.$message.error(res.data.msg);
+                    }
+                })
+            },
+            //编辑
+            handleEdit() {
+                axios.put("/blogs", this.formData).then((res) => {
+                    if (res.data.code == 20031) {
+                        this.dialogFormVisible4Edit = false;
+                        this.$message.success("修改成功");
+                    } else if (res.data.code == 20030) {
+                        this.$message.error("修改失败")
+                    } else {
+                        this.$message.error(res.data.msg);
+                    }
+                }).finally(() => {
+                    this.getAll();
+                })
+            },
+
+            // 详情
+            handleDetail(id) {
+                window.location = `./blogDetail.html?id=${id}`;
+
+            },
+
+            // 删除
+            handleDelete(id) {
+                console.log(id)
+                this.$confirm("删除当前博客，是否继续？", "提示", {
+                    type: 'info'
+                }).then(() => {
+                    //删除业务
+                    axios.delete("/blogs/" + id).then((res) => {
+                        if (res.data.code == 20021) {
+                            this.$message.success("删除成功");
+                        } else {
+                            this.$message.error("删除失败");
+                        }
+                    }).finally(() => {
+                        this.getAll();
+                    })
+                }).catch(() => {
+                    //取消删除
+                    this.$message.info("取消删除操作");
+                })
+            },
+
+
+        }
+    })
+</script>
+
+</html>

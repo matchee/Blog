@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<title>控制台</title>
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+
+	<!-- basic styles -->
+
+	<link href="../css/bootstrap.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="../css/font-awesome.min.css" />
+	<link rel="stylesheet" href="../css/ace.min.css" />
+	<link rel="stylesheet" href="../css/ace-rtl.min.css" />
+	<script src="../js/axios-0.18.0.js"></script>
+	<style>
+		.co {
+			font-size: 12px;
+			margin-top: 3px;
+			color: red;
+			opacity: 0;
+		}
+
+		.to {
+			opacity: 1;
+		}
+	</style>
+</head>
+
+<body class="login-layout">
+	<div class="main-container">
+		<div class="main-content">
+			<div class="row">
+				<div class="col-sm-10 col-sm-offset-1">
+					<div class="login-container">
+						<div class="center">
+							<h1>
+								<i class="icon-leaf green"></i>
+								<span class="red">博客</span>
+								<span class="white">平台</span>
+							</h1>
+						</div>
+
+						<div class="space-6"></div>
+
+						<div class="position-relative">
+							<div id="login-box" class="login-box visible widget-box no-border">
+								<div class="widget-body">
+									<div class="widget-main">
+										<h4 class="header blue lighter bigger">
+											<i class="icon-coffee green"></i>
+											请输入您的信息
+										</h4>
+
+										<div class="space-6"></div>
+
+										<form class="ttt">
+											<fieldset>
+												<label class="block clearfix">
+													<span class="block input-icon input-icon-right">
+														<input id="d-email" type="email" class="form-control"
+															placeholder="邮箱" />
+														<i class="icon-user"></i>
+													</span>
+
+													<div id="xx" class="co">*邮箱格式错误</div>
+												</label>
+
+												<label class="block clearfix">
+													<span class="block input-icon input-icon-right">
+														<input id="d-password" type="password" class="form-control"
+															placeholder="密码" />
+														<i class="icon-lock"></i>
+													</span>
+													<div id="mm" class="co">*密码格式错误</div>
+
+												</label>
+
+												<div class="space"></div>
+
+												<div class="clearfix">
+													<label class="inline">
+														<input type="checkbox" class="ace" />
+														<span class="lbl"> 记得我</span>
+													</label>
+
+													<button id="dw" type="button"
+														class="width-35 pull-right btn btn-sm btn-primary">
+														<i class="icon-key"></i>
+														登录
+													</button>
+												</div>
+
+												<div class="space-4"></div>
+											</fieldset>
+										</form>
+
+										<div class="social-or-login center">
+											<span class="bigger-110">或使用第三方登录</span>
+										</div>
+
+										<div class="social-login center">
+											<a class="btn btn-primary">
+												<i class="icon-facebook"></i>
+											</a>
+
+											<a class="btn btn-info">
+												<i class="icon-twitter"></i>
+											</a>
+
+											<a class="btn btn-danger">
+												<i class="icon-google-plus"></i>
+											</a>
+										</div>
+									</div><!-- /widget-main -->
+
+									<div class="toolbar clearfix">
+										<div>
+											<a href="#" onclick="show_box('forgot-box'); return false;"
+												class="forgot-password-link">
+												<i class="icon-arrow-left"></i>
+												忘记密码
+											</a>
+										</div>
+
+										<div>
+											<a href="#" onclick="show_box('signup-box'); return false;"
+												class="user-signup-link">
+												注册
+												<i class="icon-arrow-right"></i>
+											</a>
+										</div>
+									</div>
+								</div><!-- /widget-body -->
+							</div><!-- /login-box -->
+
+							<div id="forgot-box" class="forgot-box widget-box no-border">
+								<div class="widget-body">
+									<div class="widget-main">
+										<h4 class="header red lighter bigger">
+											<i class="icon-key"></i>
+											获取密码
+										</h4>
+
+										<div class="space-6"></div>
+										<p>
+											输入您的电子邮件和接受指令
+										</p>
+
+										<form>
+											<fieldset>
+												<label class="block clearfix">
+													<span class="block input-icon input-icon-right">
+														<input type="email" class="form-control" placeholder="邮箱" />
+														<i class="icon-envelope"></i>
+													</span>
+												</label>
+
+												<div class="clearfix">
+													<button type="button"
+														class="width-35 pull-right btn btn-sm btn-danger">
+														<i class="icon-lightbulb"></i>
+														验证
+													</button>
+												</div>
+											</fieldset>
+										</form>
+									</div><!-- /widget-main -->
+
+									<div class="toolbar center">
+										<a href="#" onclick="show_box('login-box'); return false;"
+											class="back-to-login-link">
+											重新登录
+											<i class="icon-arrow-right"></i>
+										</a>
+									</div>
+								</div><!-- /widget-body -->
+							</div><!-- /forgot-box -->
+
+							<div id="signup-box" class="signup-box widget-box no-border">
+								<div class="widget-body">
+									<div class="widget-main">
+										<h4 class="header green lighter bigger">
+											<i class="icon-group blue"></i>
+											新用户注册
+										</h4>
+
+										<div class="space-6"></div>
+										<p> 输入您的细节开始: </p>
+
+										<form>
+											<fieldset>
+												<label class="block clearfix">
+													<span class="block input-icon input-icon-right">
+														<input id="z-email" type="email" class="form-control"
+															placeholder="邮箱" />
+														<i class="icon-envelope"></i>
+													</span>
+												</label>
+
+												<label class="block clearfix">
+													<span class="block input-icon input-icon-right">
+														<input id="z-user" type="text" class="form-control"
+															placeholder="用户名" />
+														<i class="icon-user"></i>
+													</span>
+												</label>
+
+												<label class="block clearfix">
+													<span class="block input-icon input-icon-right">
+														<input id="pw" type="password" class="form-control"
+															placeholder="密码" />
+														<i class="icon-lock"></i>
+													</span>
+												</label>
+
+												<label class="block clearfix">
+													<span class="block input-icon input-icon-right">
+														<input id="pw1" type="password" class="form-control"
+															placeholder="确认密码" />
+														<i class="icon-retweet"></i>
+													</span>
+												</label>
+
+												<label class="block">
+													<input id="chk" type="checkbox" class="ace" />
+													<span class="lbl">
+														我接受
+														<a href="#">用户协议</a>
+													</span>
+												</label>
+
+												<div class="space-24"></div>
+
+												<div class="clearfix">
+													<button type="reset" class="width-30 pull-left btn btn-sm">
+														<i class="icon-refresh"></i>
+														重置
+													</button>
+
+													<button id="dr" type="button"
+														class="width-65 pull-right btn btn-sm btn-success">
+														注册
+														<i class="icon-arrow-right icon-on-right"></i>
+													</button>
+												</div>
+											</fieldset>
+										</form>
+									</div>
+
+									<div class="toolbar center">
+										<a href="#" onclick="show_box('login-box'); return false;"
+											class="back-to-login-link">
+											<i class="icon-arrow-left"></i>
+											返回登录
+										</a>
+									</div>
+								</div><!-- /widget-body -->
+							</div><!-- /signup-box -->
+						</div><!-- /position-relative -->
+					</div>
+				</div><!-- /.col -->
+			</div><!-- /.row -->
+		</div>
+	</div><!-- /.main-container -->
+
+
+	<!-- <script src="../js/jquery.min.js"></script> -->
+	<script type="text/javascript">
+		window.jQuery || document.write("<script src='../js/jquery-2.0.3.min.js'>" + "<" + "/script>");
+	</script>
+	<script type="text/javascript">
+		if ("ontouchend" in document) document.write("<script src='../js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
+	</script>
+	<script type="text/javascript">
+		function show_box(id) {
+			jQuery('.widget-box.visible').removeClass('visible');
+			jQuery('#' + id).addClass('visible');
+		}
+	</script>1
+
+	<script>
+		$(document).ready(function () {
+
+			$("#d-email").blur(function () {
+				email = $('#d-email').val();
+				var emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+				if (!emailRegex.test(email)) {
+					$("#xx").addClass("to");
+				}
+			})
+
+			$("#d-password").blur(function () {
+				password = $('#d-password').val();
+				var passwordRegex = /^[a-zA-Z0-9]+$/;
+				if (!passwordRegex.test(password)) {
+					$("#mm").addClass("to");
+				}
+			})
+
+
+			// 给登录按钮绑定点击事件
+			$('#dw').on('click', function () {
+
+				// 获取输入框中的值
+				email = $('#d-email').val();
+				password = $('#d-password').val();
+				var user = {
+					email,
+					password
+				}
+				let flag = true;
+				// 验证用户名和密码格式
+				var emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+				if (!emailRegex.test(email)) {
+					$("#xx").addClass("to");
+					flag = false;
+				}
+				var passwordRegex = /^[a-zA-Z0-9]+$/;
+				if (!passwordRegex.test(password)) {
+					$("#mm").addClass("to");
+					flag = false;
+
+				}
+				if (!(flag)) {
+					return;
+				}
+
+				// 在这里添加发送登录请求的代码
+				axios.post("/users/selectByUser", user).then((res) => {
+					// console.log(res)
+					if (res.data.code == 20041) {
+						alert("登陆成功")
+						window.location.href = "show.html"
+					} else {
+						alert("登陆失败，用户名或密码错误")
+					}
+
+				})
+			});
+
+			$('#dr').click(function () {
+				var email = $('#z-email').val();
+				var userName = $('#z-user').val();
+				var password = $('#pw').val();
+				var repeat_password = $('#pw1').val();
+				var isChecked = $('#chk').prop('checked');
+
+				// 验证邮箱格式
+				if (!email.match(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/)) {
+					alert('请输入有效的邮箱地址');
+					event.preventDefault();
+					return;
+				}
+
+				// 验证用户名长度
+				if (userName.length < 2 || userName.length > 20) {
+					alert('用户名长度应在2-20个字符之间');
+					event.preventDefault();
+					return;
+				}
+
+				// 验证密码长度
+				if (password.length < 3 || password.length > 20) {
+					alert('密码长度应在3-20个字符之间');
+					event.preventDefault();
+					return;
+				}
+
+				// 验证两次输入的密码是否一致
+				if (password !== repeat_password) {
+					alert('两次输入的密码不一致');
+					event.preventDefault();
+					return;
+				}
+
+				// 验证是否同意用户协议
+				if (!isChecked) {
+					alert('请阅读并同意用户协议');
+					event.preventDefault();
+					return;
+				}
+
+				let user = {
+					userName,
+					password,
+					email,
+					power: '用户'
+				}
+
+				console.log(user);
+
+				axios.post("/users", user).then((res) => {
+					console.log(res)
+					// this.dialogFormVisible = false;
+					// this.getAll();
+					if (res.data.code == 20011) {
+						alert("注册成功")
+						window.location.href = "login.html"
+
+					} else if (res.data.code == 20010) {
+						alert("注册失败," + res.data.msg)
+					} else {
+						alert(res.data.msg)
+					}
+				})
+
+			})
+		});
+
+	</script>
+	<!--	<div style="display:none"><script src='http//v7.cnzz.com/stat.php?id=155540&web_id=155540' language='JavaScript' charset='gb2312'></script></div>-->
+</body>
+
+<a style="background:none;height: 5%;position: fixed;bottom: 0px;width: 100%;text-align: center;
+" href="https://beian.miit.gov.cn" id="beian" target="_blank">&nbsp;赣ICP备2023007080号</a>
+
+<!-- <p style="background:none;height: 5%;position: fixed;bottom: 0px;width: 100%;text-align: center;
+"><img style="padding-top:2px;" src="../imgs/gongan.png"><a class="banquan" style="color:#fff;"
+	href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=2023007080" target="_blank">
+	赣ICP备2023007080号</a></p> -->
+
+
+</html>

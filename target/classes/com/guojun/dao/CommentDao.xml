@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+    namespace:名称空间
+-->
+<mapper namespace="com.guojun.dao.CommentDao">
+
+    <!--使用resultMap来定义字段和属性的映射关系的方式-->
+    <resultMap id="commentMap" type="com.guojun.domain.Comment">
+        <id property="id" column="id"></id>
+        <result property="context" column="context"></result>
+        <result property="userId" column="userId"></result>
+        <result property="createdTime" column="createdTime" jdbcType="TIMESTAMP"></result>
+        <association property="user" javaType="com.guojun.domain.User">
+            <id property="id" column="id"></id>
+            <result property="userName" column="userName"></result>
+        </association>
+
+    </resultMap>
+
+    <select id="getAll" resultMap="commentMap">
+        SELECT c.id,c.context,c.createdTime,u.id,u.userName , c.userid FROM comment c JOIN users u ON c.userId = u.id where blogId=#{id}
+    </select>
+
+
+</mapper>
